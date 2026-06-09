@@ -5,7 +5,7 @@ import com.app.todoapp.services.TaskServices;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,4 +25,25 @@ public class TaskController {
         model.addAttribute("tasks",tasks);
         return "tasks";
     }
+
+    @PostMapping
+    public String createTasks(@RequestParam String title){
+        taskServices.createTasks(title);
+        return "redirect:/";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deleteTask(@PathVariable Long id){
+        taskServices.deleteTasks(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/{id}/toggle")
+    public String toggleTask(@PathVariable Long id){
+        taskServices.toggleTasks(id);
+        return "redirect:/";
+    }
+
+
+
 }
